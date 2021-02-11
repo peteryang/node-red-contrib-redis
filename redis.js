@@ -20,8 +20,8 @@ module.exports = function (RED) {
     // }
     this.options =  {
       port: parseInt(process.env.REDIS_PORT),
-      host: parseInt(process.env.REDIS_HOST),
-      family: process.env.REDIS_FAMILY,
+      host: process.env.REDIS_HOST,
+      family: parseInt(process.env.REDIS_FAMILY),
       password: process.env.REDIS_PASSWORD,
       db: parseInt(process.env.REDIS_DB),
       tls: {
