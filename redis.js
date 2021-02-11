@@ -9,16 +9,27 @@ module.exports = function (RED) {
     RED.nodes.createNode(this, n);
     this.name = n.name;
     this.cluster = n.cluster;
-    if (this.optionsType === "") {
-      this.options = n.options;
-    } else {
-      this.options = RED.util.evaluateNodeProperty(
-        n.options,
-        n.optionsType,
-        this
-      );
-    }
+    // if (this.optionsType === "") {
+    //   this.options = n.options;
+    // } else {
+    //   this.options = RED.util.evaluateNodeProperty(
+    //     n.options,
+    //     n.optionsType,
+    //     this
+    //   );
+    // }
+    this.options =  {
+      port: parseInt(process.env.REDIS_PORT),
+      host: parseInt(process.env.REDIS_HOST),
+      family: process.env.REDIS_FAMILY,
+      password: process.env.REDIS_PASSWORD,
+      db: parseInt(process.env.REDIS_DB),
+      tls: {
+        ca: process.env.REDIS_CA,
+      }
+    };
   }
+
   RED.nodes.registerType("redis-config", RedisConfig);
 
   function RedisIn(n) {
