@@ -18,16 +18,26 @@ module.exports = function (RED) {
     //     this
     //   );
     // }
-    this.options =  {
-      port: parseInt(process.env.REDIS_PORT),
-      host: process.env.REDIS_HOST,
-      family: parseInt(process.env.REDIS_FAMILY),
-      password: process.env.REDIS_PASSWORD,
-      db: parseInt(process.env.REDIS_DB),
-      tls: {
-        ca: process.env.REDIS_CA,
-      }
-    };
+    if(process.env.REDIS_SSL && process.env.REDIS_SSL.toLowerCase() == 'true' ){
+      this.options =  {
+        port: parseInt(process.env.REDIS_PORT),
+        host: process.env.REDIS_HOST,
+        family: parseInt(process.env.REDIS_FAMILY),
+        password: process.env.REDIS_PASSWORD,
+        db: parseInt(process.env.REDIS_DB),
+        tls: {
+          ca: process.env.REDIS_CA,
+        }
+      };        
+    }else{
+      this.options =  {
+        port: parseInt(process.env.REDIS_PORT),
+        host: process.env.REDIS_HOST,
+        family: parseInt(process.env.REDIS_FAMILY),
+        password: process.env.REDIS_PASSWORD,
+        db: parseInt(process.env.REDIS_DB)
+      };  
+    }
   }
 
   RED.nodes.registerType("redis-config", RedisConfig);
